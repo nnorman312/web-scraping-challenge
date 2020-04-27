@@ -1,8 +1,8 @@
 # Dependencies and Setup
 from bs4 import BeautifulSoup
 from splinter import Browser
-import tweepy
 import pandas as pd
+from selenium import webdriver
 
 # Initialize Splinter Browser
 def init_browser():
@@ -132,6 +132,6 @@ def scrape():
         mars_info["hemispheres"] = hemisphere_image_urls
 
     # Quit browser
-    browser.quit
+    browser.quit()
 
     return mars_info
