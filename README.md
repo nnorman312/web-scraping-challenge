@@ -9,4 +9,4 @@ The web scraping entails the following:
 - Visit the Mars Facts webpage and use Pandas to scrape the table containing facts about the planet including Diameter, Mass, and more.
 - Visit the USGS Astrogeology site to obtain high resolution images for each of Mar's hemispheres
 
-Once I successfully complete these tasks, I use MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped. The template HTML file called index.html herein takes the Mars data dictionary and displays all of the data in the appropriate HTML elements. See the Webpage Results file for a quick preview.
+Once I successfully complete these tasks, I use MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped. The template HTML file called index.html herein takes the Mars data dictionary and displays all of the data in the appropriate HTML elements. See the Webpage Result file for a quick preview.
