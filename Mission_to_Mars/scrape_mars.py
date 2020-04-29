@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from splinter import Browser
 import pandas as pd
 from selenium import webdriver
+import requests
 
 # Initialize Splinter Browser
 def init_browser():
@@ -35,7 +36,7 @@ def scrape():
 
     # Add Results to Mars Info Dictionary
     mars_info["news_title"] = news_title
-    mars_info["teaser"] = news_p
+    mars_info["news_p"] = news_p
 
 
     # JPL Mars Space Images - Featured Image
@@ -67,17 +68,21 @@ def scrape():
 
 
     # Mars Weather
-    # Visit the Mars Weather Twitter Account
-    mars_weather_url = "https://twitter.com/marswxreport?lang=en"
-    browser.visit(mars_weather_url)
-    
-    # Parse Results HTML with BeautifulSoup
-    html = browser.html
-    mars_weather_soup = BeautifulSoup(html, "html.parser")
-    
-    # Scrape Twitter Account for Latest Tweet
-    mars_weather = mars_weather_soup.find("p", class_="tweet-text").text
-    print(mars_weather)
+    # Mars Weather Twitter Link
+    twitter_url = 'https://twitter.com/marswxreport?lang=en'
+
+    # Retrieve page with the requests module
+    response = requests.get(twitter_url)
+
+    # Parse Response Text with BeautifulSoup
+    twitter_soup = BeautifulSoup(response.text, "html.parser")
+
+    # Scrape latest tweet
+    mars_weather = twitter_soup.find('div', class_='js-tweet-text-container').p.text
+
+    # Remove photo link from latest tweet
+    mars_weather = mars_weather.split('pic')[0]
+    mars_weather = mars_weather.replace("\n"," ")
 
     # Add Result to Mars Info Dictionary
     mars_info["mars_weather"] = mars_weather
@@ -96,7 +101,7 @@ def scrape():
     html_table = html_table.replace("\n", "")
 
     # Add Results to Mars Info Dictionary
-    mars_info["mars_table"] = html_table
+    mars_info["html_table"] = html_table
 
 
     # Mars Hemisphere
